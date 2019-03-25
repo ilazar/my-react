@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Build Your Own React</title>
+    <script src="./src/react.js"></script>
+    <script src="./src/react-dom.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+    const helloWorld = React.createElement('div', null, `Hello World`);
+    ReactDOM.render(helloWorld, document.getElementById('root'));
+</script>
+</body>
+</html>
