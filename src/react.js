@@ -1,12 +1,12 @@
 (() => {
-  function anElement(element, children) {
-    const anElement = document.createElement(element);
-    anElement.innerHTML = children.join(' ');
-    return anElement;
+  function create(type, children) {
+    const element = document.createElement(type);
+    element.innerHTML = children.join(' ');
+    return element;
   }
 
-  function createElement(el, props, ...children) {
-    return anElement(el, children);
+  function createElement(type, props, ...children) {
+    return create(type, children);
   }
 
   window.React = {
