@@ -1,6 +1,9 @@
 (() => {
   function create(type, children) {
-    if (typeof type === 'function') {
+    if (isClass(type)) {
+      const component = new type();
+      return component.render();
+    } else if (typeof type === 'function') {
       return type();
     } else {
       const element = document.createElement(type);
@@ -17,6 +20,10 @@
 
   function createElement(type, props, ...children) {
     return create(type, children);
+  }
+
+  function isClass(fn) {
+    return typeof fn === 'function' && /^class\s/.test(fn.toString());
   }
 
   window.React = {

@@ -17,3 +17,7 @@
 ## 04
 
 - Support component composition
+
+## 05
+
+- Support class components
