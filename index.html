@@ -9,8 +9,19 @@
 <div id="root"></div>
 <script>
     const Hello = () => React.createElement('h1', null, 'Hello World');
-    const app = React.createElement(Hello, null, null);
+    const h1 = React.createElement(Hello);
+    const h2 = React.createElement(Hello);
+    const app = React.createElement('div', null,
+      h1,
+      h2,
+      'Salut'
+    );
     ReactDOM.render(app, document.getElementById('root'));
+    // <app>
+    //   {h1}
+    //   {h2}
+    //   Salut
+    // </app>
 </script>
 </body>
 </html>

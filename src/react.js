@@ -4,7 +4,13 @@
       return type();
     } else {
       const element = document.createElement(type);
-      element.innerHTML = children.join(' ');
+      children.forEach(child => {
+        if (typeof(child) === 'object') {
+          element.appendChild(child);
+        } else {
+          element.innerHTML += child;
+        }
+      });
       return element;
     }
   }

@@ -13,3 +13,7 @@
 ## 03
 
 - Support functional components
+
+## 04
+
+- Support component composition
