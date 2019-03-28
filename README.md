@@ -9,3 +9,7 @@
 ## 02
 
 - Support other html elements
+
+## 03
+
+- Support functional components
