@@ -1,8 +1,8 @@
 (() => {
   function create(type, props, children) {
     if (isClass(type)) {
-      return handleClass(type);
-    } else if (typeof type === 'function') {
+      return handleClass(type, props);
+    } else if (isStateLessComponent(type)) {
       return type(props);
     } else {
       return handleHtmlElement(type, children);
@@ -13,8 +13,8 @@
     return create(type, props, children);
   }
 
-  function handleClass(clazz) {
-    const component = new clazz();
+  function handleClass(clazz, props) {
+    const component = new clazz(props);
     return component.render();
   }
 
@@ -30,11 +30,14 @@
     return element;
   }
 
-  function isClass(fn) {
-    return typeof fn === 'function' && /^class\s/.test(fn.toString());
+  class Component {
+    constructor(props) {
+      this.props = props;
+    }
   }
 
   window.React = {
-    createElement
+    createElement,
+    Component
   };
 })();

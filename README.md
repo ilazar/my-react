@@ -7,3 +7,4 @@
 - 05 Class components
 - 06 Separate js code
 - 07 Stateless components
+- 08 Class component props

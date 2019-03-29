@@ -1,6 +1,12 @@
-const Hello = ({ name }) => {
-  return React.createElement('div', null, `Hello ${name}`);
-};
+class Hello extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-const app = React.createElement(Hello, { name: 'John' });
+  render() {
+    return React.createElement('div', null, `Hello ${this.props.name}`);
+  }
+}
+
+const app = React.createElement(Hello, { name: 'Mary' });
 ReactDOM.render(app, document.getElementById('root'));
