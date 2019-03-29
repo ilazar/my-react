@@ -1,25 +1,33 @@
 (() => {
-  function create(type, children) {
+  function create(type, props, children) {
     if (isClass(type)) {
-      const component = new type();
-      return component.render();
+      return handleClass(type);
     } else if (typeof type === 'function') {
-      return type();
+      return type(props);
     } else {
-      const element = document.createElement(type);
-      children.forEach(child => {
-        if (typeof(child) === 'object') {
-          element.appendChild(child);
-        } else {
-          element.innerHTML += child;
-        }
-      });
-      return element;
+      return handleHtmlElement(type, children);
     }
   }
 
   function createElement(type, props, ...children) {
-    return create(type, children);
+    return create(type, props, children);
+  }
+
+  function handleClass(clazz) {
+    const component = new clazz();
+    return component.render();
+  }
+
+  function handleHtmlElement(type, children) {
+    const element = document.createElement(type);
+    children.forEach(child => {
+      if (typeof(child) === 'object') {
+        element.appendChild(child);
+      } else {
+        element.innerHTML += child;
+      }
+    });
+    return element;
   }
 
   function isClass(fn) {
