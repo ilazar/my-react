@@ -8,3 +8,4 @@
 - 06 Separate js code
 - 07 Stateless components
 - 08 Class component props
+- 09 Handling events (html attributes)

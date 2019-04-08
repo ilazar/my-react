@@ -5,7 +5,7 @@
     } else if (isStateLessComponent(type)) {
       return type(props);
     } else {
-      return handleHtmlElement(type, children);
+      return handleHtmlElement(type, props, children);
     }
   }
 
@@ -18,13 +18,20 @@
     return component.render();
   }
 
-  function handleHtmlElement(type, children) {
+  function handleHtmlElement(type, props, children) {
     const element = document.createElement(type);
     children.forEach(child => {
       if (typeof(child) === 'object') {
         element.appendChild(child);
       } else {
         element.innerHTML += child;
+      }
+    });
+    Object.keys(props).forEach(propName => {
+      if (/^on.*$/.test(propName)) {
+        element.addEventListener(propName.substring(2).toLowerCase(), props[propName]);
+      } else {
+        element.setAttribute(propName, props[propName]);
       }
     });
     return element;

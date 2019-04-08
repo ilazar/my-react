@@ -3,10 +3,18 @@ class Hello extends React.Component {
     super(props);
   }
 
+  handleClick = () => {
+    const { onSayHello } = this.props;
+    onSayHello('Mary');
+  };
+
   render() {
-    return React.createElement('div', null, `Hello ${this.props.name}`);
+    return React.createElement('button', {onClick: this.handleClick}, `Say hello`);
+    // <button onClick={handleSayHello} />
   }
 }
 
-const app = React.createElement(Hello, { name: 'Mary' });
+const handleSayHello = name => alert(`Hello ${name}`);
+const app = React.createElement(Hello, { onSayHello: handleSayHello });
+// <Hello onSayHello={handleSayHello} />
 ReactDOM.render(app, document.getElementById('root'));
