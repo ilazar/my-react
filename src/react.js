@@ -1,7 +1,9 @@
 (() => {
+  const REACT_CLASS = 'REACT_CLASS';
+
   function create(type, props, children) {
     if (isClass(type)) {
-      return handleClass(type, props);
+      return handleClass(type, props, children);
     } else if (isStateLessComponent(type)) {
       return type(props);
     } else {
@@ -13,34 +15,56 @@
     return create(type, props, children);
   }
 
-  function handleClass(clazz, props) {
+  function handleClass(clazz, props, children) {
     const component = new clazz(props);
-    return component.render();
+    component.children = children;
+    component.type = REACT_CLASS;
+    return component;
   }
 
   function handleHtmlElement(type, props, children) {
+    console.log('* html', type, children);
     const element = document.createElement(type);
-    children.forEach(child => {
-      if (typeof(child) === 'object') {
-        element.appendChild(child);
-      } else {
-        element.innerHTML += child;
-      }
-    });
-    Object.keys(props).forEach(propName => {
-      if (/^on.*$/.test(propName)) {
-        element.addEventListener(propName.substring(2).toLowerCase(), props[propName]);
-      } else {
-        element.setAttribute(propName, props[propName]);
-      }
-    });
+    if (children) {
+      children.forEach(child => appendChild(element, child));
+    }
+    if (props) {
+      Object.keys(props).forEach(propName => {
+        if (/^on.*$/.test(propName)) {
+          element.addEventListener(propName.substring(2).toLowerCase(), props[propName]);
+        } else {
+          element.setAttribute(propName, props[propName]);
+        }
+      });
+    }
     return element;
+  }
+
+  function appendChild(element, child) {
+    if (child.type === REACT_CLASS) {
+      appendChild(element, child.render());
+    } else if (Array.isArray(child)) {
+      child.forEach(ch => appendChild(element, ch));
+    } else if (typeof(child) === 'object') {
+      element.appendChild(child);
+    } else {
+      element.innerHTML += child;
+    }
   }
 
   class Component {
     constructor(props) {
       this.props = props;
     }
+
+    setState(state) {
+      this.state = Object.assign({}, this.state, state);
+      reRender();
+    }
+  }
+
+  function reRender() {
+    ReactDOM.reRender();
   }
 
   window.React = {
