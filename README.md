@@ -10,3 +10,5 @@
 - 08 Class component props
 - 09 Handling events (html attributes)
 - 10 Component state
+- 11 JSX
+- 12 Presentational vs container components

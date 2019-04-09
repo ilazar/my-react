@@ -13,19 +13,15 @@ class Counter extends React.Component {
 
   render() {
     const { value } = this.state;
-    return React.createElement('div', null,
-      React.createElement('button', { onClick: this.handleClick(-1) }, '-'),
-      React.createElement('span', null, value),
-      React.createElement('button', { onClick: this.handleClick(1) }, '+')
+    return (
+      <div>
+        <button onClick={this.handleClick(-1)}>-</button>
+        <span>{value}</span>
+        <button onClick={this.handleClick(1)}>+</button>
+      </div>
     );
-    // <div>
-    //   <button onClick={handleClick(-1)}>-</button>
-    //   <span>{value}</span>
-    //   <button onClick={handleClick(1)}>+</button>
-    // </div>
   }
 }
 
-const app = React.createElement(Counter);
-// <Counter />
+const app = <Counter />;
 ReactDOM.render(app, document.getElementById('root'));
