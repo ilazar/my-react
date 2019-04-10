@@ -1,6 +1,6 @@
 # Changelog
 
-## v01
+- 01
 
  * Define `React.createElement(element, attributes, children)`
  * Define `ReactDOM.render(reactEl, domEl)`
