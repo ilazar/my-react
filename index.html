@@ -8,18 +8,17 @@
 <body>
 <div id="root"></div>
 <script>
-    const Hello = () => React.createElement('h1', null, 'Hello World');
-    const app = React.createElement('div', null,
-      React.createElement(Hello),
-      React.createElement(Hello),
-      'Salut'
-    );
-    // <app>
-    //   <Hello />
-    //   <Hello />
-    //   Salut
-    // </app>
-    ReactDOM.render(app, document.getElementById('root'));
-</script>
+  class Hello {
+    render() {
+      return React.createElement('div', null, `Hello World`);
+    }
+  }
+
+  const app = React.createElement(Hello);
+  // <app>
+  //    <Hello />
+  // </app>
+
+  ReactDOM.render(app, document.getElementById('root'));</script>
 </body>
 </html>
