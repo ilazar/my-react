@@ -8,9 +8,10 @@
 <body>
 <div id="root"></div>
 <script>
-    const app = React.createElement('h1', null, `Hello World`, '= Salutare tuturor');
-    // <h1>Hello World=Salutare tuturor</h1>
-    ReactDOM.render(app, document.getElementById('root'));
+  const Hello = () => React.createElement('h1', null, 'Hello World');
+  // () => <h1>Hello World</h1>
+  const app = React.createElement(Hello, null, null);
+  ReactDOM.render(app, document.getElementById('root'));
 </script>
 </body>
 </html>
