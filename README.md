@@ -5,3 +5,4 @@
 - 03 Functional components
 - 04 Component composition
 - 05 Class components
+- 06 Separate js code
