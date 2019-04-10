@@ -1,20 +1,31 @@
-class Hello extends React.Component {
+class Counter extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { value: 0 };
+
   }
 
-  handleClick = () => {
-    const { onSayHello } = this.props;
-    onSayHello('Mary');
+  handleClick = inc => () => {
+    let { value } = this.state;
+    value += inc;
+    this.setState({ value });
   };
 
   render() {
-    return React.createElement('button', {onClick: this.handleClick}, `Say hello`);
-    // <button onClick={handleSayHello} />
+    const { value } = this.state;
+    return React.createElement('div', null,
+      React.createElement('button', { onClick: this.handleClick(-1) }, '-'),
+      React.createElement('span', null, value),
+      React.createElement('button', { onClick: this.handleClick(1) }, '+')
+    );
+    // <div>
+    //   <button onClick={handleClick(-1)}>-</button>
+    //   <span>{value}</span>
+    //   <button onClick={handleClick(1)}>+</button>
+    // </div>
   }
 }
 
-const handleSayHello = name => alert(`Hello ${name}`);
-const app = React.createElement(Hello, { onSayHello: handleSayHello });
-// <Hello onSayHello={handleSayHello} />
+const app = React.createElement(Counter);
+// <Counter />
 ReactDOM.render(app, document.getElementById('root'));
