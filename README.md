@@ -23,3 +23,12 @@
 - 18 High order components
 - 19 State hook
 - 20 Effect hook
+
+## Labs
+
+- Write a "build your own X" project, where X is (a part of) a JavaScript library
+
+Examples
+  - vue, https://vuejs.org/
+  - koa, https://koajs.com/
+  - express/koa/react router
