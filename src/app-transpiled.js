@@ -19,6 +19,14 @@ class Counter extends React.Component {
     };
   }
 
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
   render() {
     const {
       value
@@ -32,6 +40,14 @@ class Counter extends React.Component {
 
 }
 
-const app = React.createElement(Counter, null);
-ReactDOM.render(app, document.getElementById('root'));
+const StatlessComponent = () => React.createElement("div", null, "Hello world");
+
+class App extends React.Component {
+  render() {
+    return React.createElement("div", null, React.createElement("div", null, "Don't render again!"), React.createElement(Counter, null), React.createElement(StatlessComponent, null));
+  }
+
+}
+
+ReactDOM.render(React.createElement(App, null), document.getElementById("root"));
 

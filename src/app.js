@@ -2,7 +2,13 @@ class Counter extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: 0 };
+  }
+  componentWillMount(){
+    console.log('componentWillMount')
+  }
 
+  componentDidMount(){
+    console.log('componentDidMount')
   }
 
   handleClick = inc => () => {
@@ -23,5 +29,16 @@ class Counter extends React.Component {
   }
 }
 
-const app = <Counter />;
-ReactDOM.render(app, document.getElementById('root'));
+const StatlessComponent = () => (<div>Hello world</div>);
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <div>Don't render again!</div>
+        <Counter />
+        <StatlessComponent></StatlessComponent>
+      </div>
+    );
+  }
+}
+ReactDOM.render(<App/>, document.getElementById("root"));
