@@ -11,11 +11,11 @@
 - 09 Handling events (html attributes)
 - 10 Component state
 - 11 JSX
+- 13 Component lifecycle
 
 --- TODO ---
 
 - 12 Routing
-- 13 Component lifecycle
 - 14 Presentational vs container components 
 - 15 Context provider and consumer
 - 16 App state (redux)
