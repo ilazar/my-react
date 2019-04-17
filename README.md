@@ -12,12 +12,12 @@
 - 10 Component state
 - 11 JSX
 - 13 Component lifecycle
+- 15 Context provider and consumer
 
 --- TODO ---
 
 - 12 Routing
 - 14 Presentational vs container components 
-- 15 Context provider and consumer
 - 16 App state (redux)
 - 17 Thunk middleware
 - 18 High order components
