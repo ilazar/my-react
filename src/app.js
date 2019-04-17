@@ -3,12 +3,12 @@ class Counter extends React.Component {
     super(props);
     this.state = { value: 0 };
   }
-  componentWillMount(){
-    console.log('componentWillMount')
+  componentWillMount() {
+    console.log("componentWillMount");
   }
 
-  componentDidMount(){
-    console.log('componentDidMount')
+  componentDidMount() {
+    console.log("componentDidMount");
   }
 
   handleClick = inc => () => {
@@ -29,16 +29,56 @@ class Counter extends React.Component {
   }
 }
 
-const StatlessComponent = () => (<div>Hello world</div>);
-class App extends React.Component {
+const ThemeContext = React.createContext("light");
+function InnerComponent(props) {
+  return (
+    <div>
+      <MyText />
+    </div>
+  );
+}
+
+class MyText extends React.Component {
   render() {
     return (
       <div>
-        <div>Don't render again!</div>
-        <Counter />
-        <StatlessComponent></StatlessComponent>
+        <ThemeContext.Consumer>
+          {value => <h2>{value}</h2>}
+        </ThemeContext.Consumer>
       </div>
     );
   }
 }
-ReactDOM.render(<App/>, document.getElementById("root"));
+
+class ContextExemple extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "white" };
+  }
+  handleClick2 = () => {
+    let { value } = this.state;
+    value = value === "black" ? "white" : "black";
+    this.setState({ value });
+  };
+  render() {
+    return (
+      <div>
+        <ThemeContext.Provider value={this.state.value}>
+          <InnerComponent />
+        </ThemeContext.Provider>
+        <button onClick={this.handleClick2}>Change color</button>
+      </div>
+    );
+  }
+}
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <ContextExemple />
+        <Counter />
+      </div>
+    );
+  }
+}
+ReactDOM.render(<App />, document.getElementById("root"));
