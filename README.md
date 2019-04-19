@@ -11,24 +11,5 @@
 - 09 Handling events (html attributes)
 - 10 Component state
 - 11 JSX
-- 13 Component lifecycle
-- 15 Context provider and consumer
-
---- TODO ---
-
-- 12 Routing
-- 14 Presentational vs container components 
-- 16 App state (redux)
-- 17 Thunk middleware
-- 18 High order components
-- 19 State hook
-- 20 Effect hook
-
-## Labs
-
-- Write a "build your own X" project, where X is (a part of) a JavaScript library
-
-Examples
-  - vue, https://vuejs.org/
-  - koa, https://koajs.com/
-  - express/koa/react router
+- 12 Component lifecycle
+- 13 Context provider and consumer
