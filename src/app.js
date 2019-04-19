@@ -1,84 +1,27 @@
-class Counter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: 0 };
-  }
-  componentWillMount() {
-    console.log("componentWillMount");
-  }
+const Header = () => (<div>Header</div>);
 
-  componentDidMount() {
-    console.log("componentDidMount");
-  }
+const Home = () => (
+  <div>
+    <h1>Home</h1>
+    <Link to='/todo'>Todo</Link>
+  </div>);
 
-  handleClick = inc => () => {
-    let { value } = this.state;
-    value += inc;
-    this.setState({ value });
-  };
+const Todo = () => (<div>Todo</div>);
 
-  render() {
-    const { value } = this.state;
-    return (
-      <div>
-        <button onClick={this.handleClick(-1)}>-</button>
-        <span>{value}</span>
-        <button onClick={this.handleClick(1)}>+</button>
-      </div>
-    );
-  }
-}
+const Main = () => (
+  <Switch>
+    <Route exact path='/' component={Home}/>
+    <Route path='/todo' component={Todo}/>
+  </Switch>
+);
 
-const ThemeContext = React.createContext("light");
-function InnerComponent(props) {
-  return (
-    <div>
-      <MyText />
-    </div>
-  );
-}
+const App = (
+  <div>
+    <Header />
+    <Main />>
+  </div>
+);
 
-class MyText extends React.Component {
-  render() {
-    return (
-      <div>
-        <ThemeContext.Consumer>
-          {value => <h2>{value}</h2>}
-        </ThemeContext.Consumer>
-      </div>
-    );
-  }
-}
+const withRouterApp = <BrowserRouter><App /></BrowserRouter>;
 
-class ContextExemple extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: "white" };
-  }
-  handleClick2 = () => {
-    let { value } = this.state;
-    value = value === "black" ? "white" : "black";
-    this.setState({ value });
-  };
-  render() {
-    return (
-      <div>
-        <ThemeContext.Provider value={this.state.value}>
-          <InnerComponent />
-        </ThemeContext.Provider>
-        <button onClick={this.handleClick2}>Change color</button>
-      </div>
-    );
-  }
-}
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <ContextExemple />
-        <Counter />
-      </div>
-    );
-  }
-}
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(withRouterApp, document.getElementById("root"));

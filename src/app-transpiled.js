@@ -1,93 +1,21 @@
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+const Header = () => React.createElement("div", null, "Header");
 
-class Counter extends React.Component {
-  constructor(props) {
-    super(props);
+const Home = () => React.createElement("div", null, React.createElement("h1", null, "Home"), React.createElement(Link, {
+  to: "/todo"
+}, "Todo"));
 
-    _defineProperty(this, "handleClick", inc => () => {
-      let {
-        value
-      } = this.state;
-      value += inc;
-      this.setState({
-        value
-      });
-    });
+const Todo = () => React.createElement("div", null, "Todo");
 
-    this.state = {
-      value: 0
-    };
-  }
+const Main = () => React.createElement(Switch, null, React.createElement(Route, {
+  exact: true,
+  path: "/",
+  component: Home
+}), React.createElement(Route, {
+  path: "/todo",
+  component: Todo
+}));
 
-  componentWillMount() {
-    console.log("componentWillMount");
-  }
-
-  componentDidMount() {
-    console.log("componentDidMount");
-  }
-
-  render() {
-    const {
-      value
-    } = this.state;
-    return React.createElement("div", null, React.createElement("button", {
-      onClick: this.handleClick(-1)
-    }, "-"), React.createElement("span", null, value), React.createElement("button", {
-      onClick: this.handleClick(1)
-    }, "+"));
-  }
-
-}
-
-const ThemeContext = React.createContext("light");
-
-function InnerComponent(props) {
-  return React.createElement("div", null, React.createElement(MyText, null));
-}
-
-class MyText extends React.Component {
-  render() {
-    return React.createElement("div", null, React.createElement(ThemeContext.Consumer, null, value => React.createElement("h2", null, value)));
-  }
-
-}
-
-class ContextExemple extends React.Component {
-  constructor(props) {
-    super(props);
-
-    _defineProperty(this, "handleClick2", () => {
-      let {
-        value
-      } = this.state;
-      value = value === "black" ? "white" : "black";
-      this.setState({
-        value
-      });
-    });
-
-    this.state = {
-      value: "white"
-    };
-  }
-
-  render() {
-    return React.createElement("div", null, React.createElement(ThemeContext.Provider, {
-      value: this.state.value
-    }, React.createElement(InnerComponent, null)), React.createElement("button", {
-      onClick: this.handleClick2
-    }, "Change color"));
-  }
-
-}
-
-class App extends React.Component {
-  render() {
-    return React.createElement("div", null, React.createElement(ContextExemple, null), React.createElement(Counter, null));
-  }
-
-}
-
-ReactDOM.render(React.createElement(App, null), document.getElementById("root"));
+const App = React.createElement("div", null, React.createElement(Header, null), React.createElement(Main, null), ">");
+const withRouterApp = React.createElement(BrowserRouter, null, React.createElement(App, null));
+ReactDOM.render(withRouterApp, document.getElementById("root"));
 
