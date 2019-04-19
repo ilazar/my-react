@@ -1,84 +1,59 @@
-class Counter extends React.Component {
+const ItemList = ({ items }) => (
+  <ul>
+    {items.map((item, index) => <li key={index}>item.text</li>)}
+  </ul>
+);
+
+class ItemEdit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: 0 };
-  }
-  componentWillMount() {
-    console.log("componentWillMount");
+    this.state = { text: '' };
   }
 
-  componentDidMount() {
-    console.log("componentDidMount");
-  }
+  handleChange = event => () => {
+    this.setState({ text: event.target.value });
+  };
 
-  handleClick = inc => () => {
-    let { value } = this.state;
-    value += inc;
-    this.setState({ value });
+  handleClick = () => () => {
+    const { onSubmit } = this.props;
+    const { text } = this.state;
+    onSubmit(text);
+    this.setState({ text: '' });
   };
 
   render() {
-    const { value } = this.state;
+    const { text } = this.state;
     return (
       <div>
-        <button onClick={this.handleClick(-1)}>-</button>
-        <span>{value}</span>
-        <button onClick={this.handleClick(1)}>+</button>
+        <input type="text" value={text} onChange={this.handleChange} />
+        <button onClick={this.handleClick}>Add</button>
       </div>
     );
   }
 }
 
-const ThemeContext = React.createContext("light");
-function InnerComponent(props) {
-  return (
-    <div>
-      <MyText />
-    </div>
-  );
-}
-
-class MyText extends React.Component {
-  render() {
-    return (
-      <div>
-        <ThemeContext.Consumer>
-          {value => <h2>{value}</h2>}
-        </ThemeContext.Consumer>
-      </div>
-    );
-  }
-}
-
-class ContextExemple extends React.Component {
+class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: "white" };
+    this.state = { items: [] };
   }
-  handleClick2 = () => {
-    let { value } = this.state;
-    value = value === "black" ? "white" : "black";
-    this.setState({ value });
+
+  handleSubmit = text => () => {
+    let { items } = this.state;
+    this.setState({ items: [{ text }, ...items] });
   };
+
   render() {
+    const { items } = this.state;
     return (
       <div>
-        <ThemeContext.Provider value={this.state.value}>
-          <InnerComponent />
-        </ThemeContext.Provider>
-        <button onClick={this.handleClick2}>Change color</button>
+        <ItemEdit onSubmit={this.handleSubmit}/>
+        <ItemList items={items} />
       </div>
     );
   }
 }
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <ContextExemple />
-        <Counter />
-      </div>
-    );
-  }
-}
+
+const App = () => <Todo />;
+
 ReactDOM.render(<App />, document.getElementById("root"));

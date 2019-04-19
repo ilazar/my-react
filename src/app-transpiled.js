@@ -1,93 +1,88 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-class Counter extends React.Component {
+const ItemList = ({
+  items
+}) => React.createElement("ul", null, items.map((item, index) => React.createElement("li", {
+  key: index
+}, "item.text")));
+
+class ItemEdit extends React.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "handleClick", inc => () => {
-      let {
-        value
-      } = this.state;
-      value += inc;
+    _defineProperty(this, "handleChange", event => () => {
       this.setState({
-        value
+        text: event.target.value
+      });
+    });
+
+    _defineProperty(this, "handleClick", () => () => {
+      const {
+        onSubmit
+      } = this.props;
+      const {
+        text
+      } = this.state;
+      onSubmit(text);
+      this.setState({
+        text: ''
       });
     });
 
     this.state = {
-      value: 0
+      text: ''
     };
-  }
-
-  componentWillMount() {
-    console.log("componentWillMount");
-  }
-
-  componentDidMount() {
-    console.log("componentDidMount");
   }
 
   render() {
     const {
-      value
+      text
     } = this.state;
-    return React.createElement("div", null, React.createElement("button", {
-      onClick: this.handleClick(-1)
-    }, "-"), React.createElement("span", null, value), React.createElement("button", {
-      onClick: this.handleClick(1)
-    }, "+"));
+    return React.createElement("div", null, React.createElement("input", {
+      type: "text",
+      value: text,
+      onChange: this.handleChange
+    }), React.createElement("button", {
+      onClick: this.handleClick
+    }, "Add"));
   }
 
 }
 
-const ThemeContext = React.createContext("light");
-
-function InnerComponent(props) {
-  return React.createElement("div", null, React.createElement(MyText, null));
-}
-
-class MyText extends React.Component {
-  render() {
-    return React.createElement("div", null, React.createElement(ThemeContext.Consumer, null, value => React.createElement("h2", null, value)));
-  }
-
-}
-
-class ContextExemple extends React.Component {
+class Todo extends React.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "handleClick2", () => {
+    _defineProperty(this, "handleSubmit", text => () => {
       let {
-        value
+        items
       } = this.state;
-      value = value === "black" ? "white" : "black";
       this.setState({
-        value
+        items: [{
+          text
+        }, ...items]
       });
     });
 
     this.state = {
-      value: "white"
+      items: []
     };
   }
 
   render() {
-    return React.createElement("div", null, React.createElement(ThemeContext.Provider, {
-      value: this.state.value
-    }, React.createElement(InnerComponent, null)), React.createElement("button", {
-      onClick: this.handleClick2
-    }, "Change color"));
+    const {
+      items
+    } = this.state;
+    return React.createElement("div", null, React.createElement(ItemEdit, {
+      onSubmit: this.handleSubmit
+    }), React.createElement(ItemList, {
+      items: items
+    }));
   }
 
 }
 
-class App extends React.Component {
-  render() {
-    return React.createElement("div", null, React.createElement(ContextExemple, null), React.createElement(Counter, null));
-  }
-
-}
+const App = () => React.createElement(Todo, null);
 
 ReactDOM.render(React.createElement(App, null), document.getElementById("root"));
 
