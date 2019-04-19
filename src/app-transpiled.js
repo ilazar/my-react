@@ -1,5 +1,28 @@
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+const ADD_ITEM = 'ADD_ITEM';
+
+const itemReducer = (state = {
+  items: []
+}, action) => {
+  switch (action.type) {
+    case ADD_ITEM:
+      return { ...state,
+        items: [action.item, ...state.items]
+      };
+
+    default:
+      return state;
+  }
+};
+
+const store = createStore(itemReducer);
+
+const addItem = item => store.dispatch({
+  type: ADD_ITEM,
+  item
+});
+
 const ItemList = ({
   items
 }) => React.createElement("ul", null, items.map((item, index) => React.createElement("li", {
@@ -53,20 +76,33 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "handleSubmit", text => () => {
-      let {
+    _defineProperty(this, "updateItems", () => {
+      const {
         items
-      } = this.state;
+      } = store.getState();
       this.setState({
-        items: [{
-          text
-        }, ...items]
+        items
+      });
+    });
+
+    _defineProperty(this, "handleSubmit", text => () => {
+      addItem({
+        text
       });
     });
 
     this.state = {
       items: []
     };
+  }
+
+  componentDidMount() {
+    this.updateItems();
+    this.unsubscribe = store.subscribe(this.updateItems);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render() {

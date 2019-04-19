@@ -1,3 +1,18 @@
+const ADD_ITEM = 'ADD_ITEM';
+
+const itemReducer = (state = { items: [] }, action) => {
+  switch(action.type) {
+    case ADD_ITEM:
+      return { ...state, items: [action.item, ...state.items] };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(itemReducer);
+
+const addItem = item => store.dispatch({ type: ADD_ITEM, item });
+
 const ItemList = ({ items }) => (
   <ul>
     {items.map((item, index) => <li key={index}>item.text</li>)}
@@ -38,9 +53,22 @@ class Todo extends React.Component {
     this.state = { items: [] };
   }
 
+  updateItems = () => {
+    const { items } = store.getState();
+    this.setState({ items });
+  };
+
+  componentDidMount() {
+    this.updateItems();
+    this.unsubscribe = store.subscribe(this.updateItems);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   handleSubmit = text => () => {
-    let { items } = this.state;
-    this.setState({ items: [{ text }, ...items] });
+    addItem({ text });
   };
 
   render() {
