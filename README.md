@@ -16,3 +16,4 @@
 - 14 Routing
 - 15 Presentational vs container components 
 - 16 App state
+- 17 Connect to app state

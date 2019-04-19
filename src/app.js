@@ -30,9 +30,9 @@ class ItemEdit extends React.Component {
   };
 
   handleClick = () => () => {
-    const { onSubmit } = this.props;
+    const { addItem } = this.props;
     const { text } = this.state;
-    onSubmit(text);
+    addItem({ text });
     this.setState({ text: '' });
   };
 
@@ -46,42 +46,21 @@ class ItemEdit extends React.Component {
     );
   }
 }
+const mapDispatchToProps = { addItem };
+const ConnectedItemEdit = connect({}, mapDispatchToProps)(ItemEdit);
 
-class Todo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { items: [] };
-  }
+const Todo = ({ items }) => (
+  <div>
+    <ConnectedItemEdit />
+    <ItemList items={items} />
+  </div>
+);
+const mapStateToProps = state => ({ items: state.items });
+const ConnectedTodo = connect(mapStateToProps)(Todo);
 
-  updateItems = () => {
-    const { items } = store.getState();
-    this.setState({ items });
-  };
+const App = () => <ConnectedTodo />;
 
-  componentDidMount() {
-    this.updateItems();
-    this.unsubscribe = store.subscribe(this.updateItems);
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  handleSubmit = text => () => {
-    addItem({ text });
-  };
-
-  render() {
-    const { items } = this.state;
-    return (
-      <div>
-        <ItemEdit onSubmit={this.handleSubmit}/>
-        <ItemList items={items} />
-      </div>
-    );
-  }
-}
-
-const App = () => <Todo />;
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}><App /></Provider>,
+  document.getElementById("root")
+);
