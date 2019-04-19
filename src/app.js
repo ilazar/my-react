@@ -30,6 +30,7 @@ class Counter extends React.Component {
 }
 
 const StatlessComponent = () => (<div>Hello world</div>);
+
 class App extends React.Component {
   render() {
     return (
