@@ -5,7 +5,7 @@
     return aDiv;
   }
 
-  function createElement(el, props, ...children) {
+  function createElement(type, props, ...children) {
     return div(children);
   }
 
