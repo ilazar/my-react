@@ -23,7 +23,6 @@
   }
 
   function handleHtmlElement(type, props, children) {
-    console.log('* html', type, children);
     const element = document.createElement(type);
     if (children) {
       children.forEach(child => appendChild(element, child));
