@@ -1,24 +1,26 @@
 const ItemList = ({ items }) => (
   <ul>
-    {items.map((item, index) => <li key={index}>item.text</li>)}
+    {items.map((item, index) => (
+      <li key={index}>{item}</li>
+    ))}
   </ul>
 );
 
 class ItemEdit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: '' };
+    this.state = { text: "test" };
   }
 
-  handleChange = event => () => {
+  handleChange = event => {
     this.setState({ text: event.target.value });
   };
 
-  handleClick = () => () => {
+  handleClick = () => {
     const { onSubmit } = this.props;
     const { text } = this.state;
     onSubmit(text);
-    this.setState({ text: '' });
+    this.setState({ text: "" });
   };
 
   render() {
@@ -35,25 +37,23 @@ class ItemEdit extends React.Component {
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: [] };
+    this.state = { items: ["test"] };
   }
 
-  handleSubmit = text => () => {
+  handleSubmit = text => {
     let { items } = this.state;
-    this.setState({ items: [{ text }, ...items] });
+    this.setState({ items: [text, ...items] });
   };
 
   render() {
     const { items } = this.state;
     return (
       <div>
-        <ItemEdit onSubmit={this.handleSubmit}/>
+        <ItemEdit onSubmit={this.handleSubmit} />
         <ItemList items={items} />
       </div>
     );
   }
 }
 
-const App = () => <Todo />;
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Todo />, document.getElementById("root"));

@@ -4,19 +4,19 @@ const ItemList = ({
   items
 }) => React.createElement("ul", null, items.map((item, index) => React.createElement("li", {
   key: index
-}, "item.text")));
+}, item)));
 
 class ItemEdit extends React.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "handleChange", event => () => {
+    _defineProperty(this, "handleChange", event => {
       this.setState({
         text: event.target.value
       });
     });
 
-    _defineProperty(this, "handleClick", () => () => {
+    _defineProperty(this, "handleClick", () => {
       const {
         onSubmit
       } = this.props;
@@ -25,12 +25,12 @@ class ItemEdit extends React.Component {
       } = this.state;
       onSubmit(text);
       this.setState({
-        text: ''
+        text: ""
       });
     });
 
     this.state = {
-      text: ''
+      text: "test"
     };
   }
 
@@ -53,19 +53,17 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
 
-    _defineProperty(this, "handleSubmit", text => () => {
+    _defineProperty(this, "handleSubmit", text => {
       let {
         items
       } = this.state;
       this.setState({
-        items: [{
-          text
-        }, ...items]
+        items: [text, ...items]
       });
     });
 
     this.state = {
-      items: []
+      items: ["test"]
     };
   }
 
@@ -82,7 +80,5 @@ class Todo extends React.Component {
 
 }
 
-const App = () => React.createElement(Todo, null);
-
-ReactDOM.render(React.createElement(App, null), document.getElementById("root"));
+ReactDOM.render(React.createElement(Todo, null), document.getElementById("root"));
 
