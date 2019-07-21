@@ -1,5 +1,6 @@
 (() => {
   let rootDOMElement, newRootReactElement, oldRootReactElement;
+
   function changed(newNode, oldNode) {
     return (
       typeof newNode !== typeof oldNode ||
@@ -37,6 +38,7 @@
       }
     }
   }
+
   function createDOMElement(node) {
     if (typeof node === "string" || typeof node === "number") {
       return document.createTextNode(node);
@@ -56,8 +58,8 @@
     }
     return $el;
   }
+
   function handleHtmlElement(type, props, children) {
-    console.log("* html", type, children);
     const element = document.createElement(type);
     if (props) {
       Object.keys(props).forEach(propName => {
@@ -79,7 +81,6 @@
       newRootReactElement = rootReactEl;
       oldRootReactElement = { ...newRootReactElement };
       rootDOMElement = domEl;
-      console.log(newRootReactElement);
       updateDom(domEl, newRootReactElement);
     },
     reRender: () => {

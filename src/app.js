@@ -3,6 +3,7 @@ class Counter extends React.Component {
     super(props);
     this.state = { value: 0 };
   }
+
   componentWillMount(){
     console.log('componentWillMount')
   }
@@ -37,7 +38,7 @@ class App extends React.Component {
       <div>
         <div>Don't render again!</div>
         <Counter />
-        <StatlessComponent></StatlessComponent>
+        <StatlessComponent />
       </div>
     );
   }
