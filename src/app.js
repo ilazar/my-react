@@ -29,7 +29,8 @@ class Counter extends React.Component {
   }
 }
 
-const ThemeContext = React.createContext("light");
+const ThemeContext = React.createContext('light');
+
 function InnerComponent(props) {
   return (
     <div>
@@ -71,6 +72,7 @@ class ContextExemple extends React.Component {
     );
   }
 }
+
 class App extends React.Component {
   render() {
     return (

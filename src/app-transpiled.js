@@ -40,7 +40,7 @@ class Counter extends React.Component {
 
 }
 
-const ThemeContext = React.createContext("light");
+const ThemeContext = React.createContext('light');
 
 function InnerComponent(props) {
   return React.createElement("div", null, React.createElement(MyText, null));
