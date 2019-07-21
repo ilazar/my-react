@@ -10,7 +10,7 @@ class Hello extends React.Component {
 
   render() {
     return React.createElement('button', {onClick: this.handleClick}, `Say hello`);
-    // <button onClick={handleSayHello} />
+    // <button onClick={handleSayHello}>Say hello</button>
   }
 }
 
